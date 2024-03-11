@@ -62,6 +62,16 @@ class JohnDecimal:
                     else:
                         pass
         return output
+    
+    def get_johnny_decimal_category(self, category_id:str) -> str:
+        output = ""
+        for category in self.categories:
+            if category.category_number == category_id:
+                output += f"{str(category)}\n"
+                for identifier in category.identifiers:
+                    output += f"    {str(identifier)}\n"
+                return output.rstrip()
+        return f"No category found for {category_id}"
 
     def __str__(self) -> str:
         return str(self.identifiers)    
@@ -77,10 +87,12 @@ class JohnDecimal:
                 for i in range(int(area_id), int(area_id) + 10):
                     if not any(category.category_number == str(i).zfill(2) for category in area.categories):
                         _new_category = f"{i} {new_category_name}"
+                        new_category_path = Path(area.file_system_location) / _new_category
                         if not dry_run:
-                            os.mkdir(Path(area.file_system_location) / _new_category)
+                            os.mkdir(Path(new_category_path))
+                            print(f"Created - {new_category_path}")
                             return True
-                        print(f"Would have created - {area.file_system_location}/{_new_category}")
+                        print(f"Would have created - {new_category_path}")
                         return False
                     
     def add_johnny_decimal_identifier(self, category_id:str, identifier_name:str, dry_run=False) -> bool:
@@ -89,14 +101,13 @@ class JohnDecimal:
                 for i in range(1, 100):
                     if not any(identifier.id_number == str(i).zfill(2) for identifier in category.identifiers):
                         new_identifier = f"{str(i).zfill(2)} {identifier_name}"
+                        new_identifier_path = Path(category.file_system_location) / new_identifier
                         if not dry_run:
-                            os.mkdir(Path(category.file_system_location) / new_identifier)
+                            os.mkdir(Path(new_identifier_path))
+                            print(f"Created - {new_identifier_path}")
                             return True
-                        print(f"Would have created - {category.file_system_location}/{new_identifier}")
+                        print(f"Would have created - {new_identifier_path}")
                         return False
-
-
-
 
 
 @dataclass

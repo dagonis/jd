@@ -1,3 +1,5 @@
+#! /opt/homebrew/bin/python3
+
 import argparse
 import os
 
@@ -16,6 +18,9 @@ def main() -> None:
     search_parser.add_argument("search_term", help="The search term to use")
     search_parser.add_argument("--include_category", "-c", help="Include the category in the search results", action="store_true")
     search_parser.add_argument("--include_files", "-f", help="Include the files in the search results", action="store_true")
+    # Subparser for Showing a specific category
+    show_category_parser = subparsers.add_parser("show", help="Show a specific Johnny Decimal category")
+    show_category_parser.add_argument("category_id", help="The category ID to show")
     # Subparser for adding JD Categories
     add_category_parser = subparsers.add_parser("add_category", help="Add a new Johnny Decimal category")
     add_category_parser.add_argument("area_id", help="The area ID to add the category to")
@@ -33,6 +38,8 @@ def main() -> None:
         jd.add_johnny_decimal_category(args.area_id, args.new_category_name, args.dry_run)
     elif hasattr(args, 'new_identifier_name'):
         jd.add_johnny_decimal_identifier(args.category_id, args.new_identifier_name, args.dry_run)
+    elif hasattr(args, 'category_id'):
+        print(jd.get_johnny_decimal_category(args.category_id))
     else:
         print(jd.print_johnny_decimal_tree())
 
