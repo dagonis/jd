@@ -41,7 +41,10 @@ def main() -> None:
     elif hasattr(args, 'new_identifier_name'):
         jd.add_johnny_decimal_identifier(args.category_id, args.new_identifier_name, args.add_placeholder, args.dry_run)
     elif hasattr(args, 'category_id'):
-        print(jd.get_johnny_decimal_category(args.category_id))
+        if "." not in args.category_id:
+            print(jd.get_johnny_decimal_category(args.category_id))
+        elif "." in args.category_id:
+            print(jd.get_johnny_decimal_identifier(args.category_id))
     else:
         print(jd.print_johnny_decimal_tree(stats=args.stats))
 

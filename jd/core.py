@@ -75,6 +75,16 @@ class JohnDecimal:
                     output += f"    {str(identifier)}\n"
                 return output.rstrip()
         return f"No category found for {category_id}"
+    
+    def get_johnny_decimal_identifier(self, identifier_id:str) -> str:
+        output = ""
+        for identifier in self.identifiers:
+            if identifier_id in str(identifier):
+                output += f"{str(identifier)}\n"
+                for jdfile in identifier.files:
+                    output += f"    {str(jdfile.file_name)}\n"
+                return output.rstrip()
+        return f"No identifier found for {identifier_id}"
 
     def __str__(self) -> str:
         return str(self.identifiers)    
@@ -191,4 +201,3 @@ class JohnnyDecimalFile:
 
     def __str__(self) -> str:
         return f"[{self.category}.{self.identifier}] {self.file_name}"
-    
