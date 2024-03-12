@@ -47,7 +47,7 @@ class JohnDecimal:
             return f"No results found for {search_term}"
         return "\n".join(results)
     
-    def print_johnny_decimal_tree(self, space_len = 4, tabs = False, print_files = False) -> str:
+    def print_johnny_decimal_tree(self, space_len = 4, tabs = False, print_files = False, stats = False) -> str:
         output = ""
         spaces = " " * space_len if not tabs else "\t"
         for area in self.areas:
@@ -61,7 +61,10 @@ class JohnDecimal:
                             output += f"{spaces}{spaces}{spaces}{jdfile}\n"
                     else:
                         pass
-        return output
+        if stats:
+            areas, categories, identifiers = len(self.areas), len(self.categories), len(self.identifiers)
+            output += f"\n\nAreas: {areas}, Categories: {categories}, Identifiers: {identifiers}"
+        return output.rstrip()
     
     def get_johnny_decimal_category(self, category_id:str) -> str:
         output = ""

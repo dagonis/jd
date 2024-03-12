@@ -12,6 +12,7 @@ def main() -> None:
                         help="The root of the Johnny Decimal library. This is can also be set with the environment variable JD_ROOT", 
                         default=os.getenv("JD_ROOT", "~/jd"))
     parser.add_argument("--dry_run", help="Don't actually do anything, just print what would happen", action="store_true")
+    parser.add_argument("--stats", "-s", help="Print some stats about the Johnny Decimal library", action="store_true")
     subparsers = parser.add_subparsers(help="Johnny Decimal command help")
     # Subparser for searching JD
     search_parser = subparsers.add_parser("search", help="Search Johnny Decimal")
@@ -42,7 +43,7 @@ def main() -> None:
     elif hasattr(args, 'category_id'):
         print(jd.get_johnny_decimal_category(args.category_id))
     else:
-        print(jd.print_johnny_decimal_tree())
+        print(jd.print_johnny_decimal_tree(stats=args.stats))
 
 
 if __name__ == '__main__':
