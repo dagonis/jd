@@ -95,7 +95,7 @@ class JohnDecimal:
                         print(f"Would have created - {new_category_path}")
                         return False
                     
-    def add_johnny_decimal_identifier(self, category_id:str, identifier_name:str, dry_run=False) -> bool:
+    def add_johnny_decimal_identifier(self, category_id:str, identifier_name:str, placeholder:bool=False, dry_run:bool=False) -> bool:
         for category in self.categories:
             if category.category_number == category_id:
                 for i in range(1, 100):
@@ -104,6 +104,8 @@ class JohnDecimal:
                         new_identifier_path = Path(category.file_system_location) / new_identifier
                         if not dry_run:
                             os.mkdir(Path(new_identifier_path))
+                            if placeholder:
+                                Path(new_identifier_path / f"{identifier_name}.md").touch()
                             print(f"Created - {new_identifier_path}")
                             return True
                         print(f"Would have created - {new_identifier_path}")

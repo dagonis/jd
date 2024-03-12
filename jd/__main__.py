@@ -29,6 +29,7 @@ def main() -> None:
     add_identifier_parser = subparsers.add_parser("add_id", help="Add a new Johnny Decimal identifier")
     add_identifier_parser.add_argument("category_id", help="The category ID to add the identifier to")
     add_identifier_parser.add_argument("new_identifier_name", help="The name of the new identifier to add")
+    add_identifier_parser.add_argument("--add_placeholder", "-p", help="Add a placeholder file for the new identifier. This is useful if you are using tools like Obsidian where you may want to link to this ID.", action="store_true")
     # On to the rest of the script
     args = parser.parse_args()
     jd = JohnDecimal(args.jd_root)
@@ -37,7 +38,7 @@ def main() -> None:
     elif hasattr(args, 'new_category_name'):
         jd.add_johnny_decimal_category(args.area_id, args.new_category_name, args.dry_run)
     elif hasattr(args, 'new_identifier_name'):
-        jd.add_johnny_decimal_identifier(args.category_id, args.new_identifier_name, args.dry_run)
+        jd.add_johnny_decimal_identifier(args.category_id, args.new_identifier_name, args.add_placeholder, args.dry_run)
     elif hasattr(args, 'category_id'):
         print(jd.get_johnny_decimal_category(args.category_id))
     else:
