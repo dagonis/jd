@@ -119,7 +119,7 @@ class JohnDecimal:
                             os.mkdir(Path(new_identifier_path))
                             if placeholder:
                                 Path(new_identifier_path / f"{identifier_name}.md").touch()
-                            print(f"Created - {new_identifier_path}")
+                            print(f"Created - {category.category_number}.{new_identifier} - {new_identifier_path}")
                             return True
                         print(f"Would have created - {new_identifier_path}")
                         return False
